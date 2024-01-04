@@ -26,7 +26,7 @@ namespace DelegatesEventsHomeWork
             Console.WriteLine($"Найден файл: {e.FileName}.");
             Console.WriteLine("Продолжить поиск? Enter - да, (n) - нет: ");
             if (Console.ReadLine()?.ToLower() == "n")
-                e.ToFinishSearch = true;
+                e.ToCancelSearch = true;
         }
     }
 }

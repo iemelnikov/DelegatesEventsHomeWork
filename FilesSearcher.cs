@@ -5,9 +5,8 @@
     /// </summary>
     internal class FilesSearcher
     {
-        private readonly string _filesSearchDirectoryPath;
-
-        private readonly string _filesSearchPattern;
+        private readonly string _filesSearchDirectoryPath,
+                                _filesSearchPattern;
 
         public FilesSearcher(string filesSearchDirectoryPath) : this(filesSearchDirectoryPath, "*.*") { }
 
@@ -18,17 +17,9 @@
         }
 
         /// <summary>
-        /// Represents the method that will handle the DelegatesEventsHomeWork.FilesSearcher.FileFound event
-        /// of a DelegatesEventsHomeWork.FilesSearcher class.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The DelegatesEventsHomeWork.FileArgs that contains the event data.</param>
-        public delegate void FileFoundEventHandler(object? sender, FileArgs e);
-
-        /// <summary>
         /// Событие при нахождении файла.
         /// </summary>
-        public event FileFoundEventHandler? FileFound;
+        public event EventHandler<FileArgs>? FileFound;
 
         /// <summary>
         /// Запуск процедуры поиска файлов.
@@ -41,7 +32,7 @@
                 {
                     var fileNameFoundFileArgs = new FileArgs(fileNameFound);
                     FileFound?.Invoke(this, fileNameFoundFileArgs);
-                    if (fileNameFoundFileArgs.ToFinishSearch)
+                    if (fileNameFoundFileArgs.ToCancelSearch)
                         break;
                 }
             }
@@ -72,9 +63,9 @@
         }
 
         /// <summary>
-        /// Возможность отмены дальнейшего поиска при значении True.
+        /// Возможность отмены дальнейшего поиска при значении true.
         /// </summary>
-        public bool ToFinishSearch { get; set; }
+        public bool ToCancelSearch { get; set; }
 
     }
 }
